@@ -1,0 +1,49 @@
+\ProvidesPackage{myTRSsymbols}[2021/10/26 package myTRSsymbols; Support Term Rewriting symbols, and my own semantic valid transformation symbols. Based on Das extpfeil-Package, extensible arrows: https://www.ctan.org/tex-archive/macros/latex/contrib/extpfeil.]	 
+
+\RequirePackage{amsmath}				% <amsthm> conflicts with <ntheorem> package (section 3.2.2 ftp://ftp.dante.de/pub/tex/macros/latex/contrib/ntheorem/ntheorem.pdf); 
+                                        % Instead, the [amsthm] option is used with <ntheorem> 
+\RequirePackage{extpfeil}				% Apart from other set of arrows, this package also gives a command to create new such arrows
+
+
+%%%%%%
+% Arrow definitions
+%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Term Rewriting symbols: A consistent typesetting
+%
+\newcommand{\trsrtc}{\ensuremath{\twoheadrightarrow}}              	% reflective-transitive closure relation: ->>
+\newcommand{\ctrsrt}{\ensuremath{\twoheadleftarrow}}                % inverted reflective-transitive closure relation: <<-
+\newcommand{\trssc}{\ensuremath{\leftrightarrow}}              		% symmetric closure relation: <->
+\def\unf#1{%                                                        % Unique normal form
+ \ensuremath{#1\mkern-\medmuskip\downarrow}%
+}
+\newcommand{\trsjnb}[2]{\ensuremath{\unf{#1}#2}}				    % #1 and #2 are joinable (Baader, Nipkow, p.9, not.6)	
+
+% valid transcription under x, x as its variable
+\def\vldtranscript#1{%
+  \ifmmode\xmapsto{#1}\else{\ensuremath{\xmapsto{#1}}}\fi%
+}
+
+% TRS operators
+\DeclareMathOperator{\sub}{\mathnormal{Sub}}				% TRS set of all variabe substitutions
+\DeclareMathOperator{\pos}{\mathnormal{Pos}}				% TRS position of subterm in term
+\DeclareMathOperator{\var}{\mathnormal{Var}}				% TRS Variables in term
+\DeclareMathOperator{\ter}{\CMcal{T}}						% TRS terms
+\DeclareMathOperator{\mter}{\prescript{}{m}{\ter}}	     	% TRS mediation terms
+\newcommand*\ntsa{\ensuremath{-}}	                % no transcription allowed
+
+% some more mnemonic terms 
+\newcommand*\OK{\ding{51}}		% for the check-marks
+
+% TRS context hole: reusing the modal logic operatorname
+\def\hole{$\square$}
+
+% Specialisation (hollow arrow left)
+\newextarrow{\specln}{{1}{1}{2}{2}}{{\lhd}{\relbar}{\relbar}}
+
+% Generalisation (hollow arrow right)
+\newextarrow{\genln}{{1}{1}{2}{2}}{{\relbar}{\relbar}{\rhd}}
+
+
+ 

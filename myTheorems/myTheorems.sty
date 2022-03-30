@@ -1,0 +1,67 @@
+\ProvidesPackage{myTheorems}[2021/05/19 package myTheorems; Support theorem types that are referred to in source .md document]	
+
+%% Theorems
+\RequirePackage[ntheorem]{empheq}
+    % Easier handling of theorem-like environments. refer to ftp://ftp.dante.de/pub/tex/macros/latex/contrib/ntheorem/ntheorem.pdf
+%\usepackage[thmmarks]{ntheorem}    % must be completed to RequirePackage[amsmath,thmmarks]{ntheorem}]
+
+\usepackage[amsmath,thmmarks]{ntheorem}
+
+% Names of the theorems
+\crefname{mmexmp}{Example}{Examples}
+\crefname{Thesis}{Thesis}{Theses}
+\crefname{mmthrq}{Research Question}{Research Questions}
+\crefname{mmdef}{Definition}{Definitions}
+\crefname{mmtrm}{Theorem}{Theorems}
+\crefname{mmprf}{Proof}{Proofs}
+\crefname{mmdp}{Design Principle}{Design Principles}
+\crefname{mmasmptn}{Assumption}{Assumptions}
+\crefname{mmh}{\textsc{Heuristic}}{Heuristics}
+\crefname{mmrmk}{Remark}{Remarks}
+\crefname{chapter}{Chapter}{Chapters}
+\crefname{section}{Section}{Sections}
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{equation}{Eq.}{Eqs.}
+
+%%%%% Theorems Definitions %%%%%%
+% Set the basic theorem style to the standard Definition
+%%%\theoremstyle{definition}
+%%%\theoremstyle{break}		% The header for all theorems are followed by a newline
+% Examples 				-- are numbered by chapter, and carry an asterisk as closing symbol
+\theoremsymbol{\ensuremath{_\Box}}
+\newtheorem{mmexmp}{Example}[section]
+%\newreptheorem{mmexmp}{Example (cont'd)}
+% Theses   				-- have continuous numbering scheme, and still close with the asterisk
+\newtheorem{Thesis}{Thesis}
+% Research Questions 		-- are enclosed with horizontal lines, and probably (?) close with the asterisk
+\theoremprework{\hrule}
+\theorempostwork{\hrule}
+\newtheorem{mmthrq}{Research Question}
+% Assumption & Heuristics	-- are numbered by chapter, header in small caps, and carry an asterisk as closing symbol
+%\theoremheaderfont{\scshape}
+\newtheorem{mmasmptn}{Assumption}[section]
+\newtheorem{mmh}{Heuristic}[section]
+% Definitions & theorems		-- are numbered by chapter, header in bold font, and carry a black square as closing symbol
+%%%\theoremheaderfont{\normalfont\bfseries}
+%%%\theoremsymbol{\ensuremath{_\blacksquare}}
+%%%\theorembodyfont{\slshape}
+\newtheorem{mmdef}{Definition}
+\newtheorem{mmtrm}{Theorem}[section]
+% Proofs				-- are numbered by chapter, and carry an open diamond as closing symbol
+\theoremsymbol{\ensuremath{_\diamond}}
+\newtheorem{mmprf}{Proof}[section]
+% Design Principles			-- are numbered continuously, without closing symbol, header not followed by newline
+%\theoremstyle{break}		% The header for all theorems are followed by a newline
+\theoremsymbol{}			% no symbol
+\newtheorem{mmdp}{DP}
+% Remarks to tables, figures, whatever -- restart numbering at sections, no closing symbol
+\theorembodyfont{\upshape}	% no slanted or italics
+\newtheorem{mmrmk}{Remark}[subsection]	% theorem counter resets every \subsection
+\renewcommand{\themmrmk}{(\arabic{mmrmk})}	% Remove subsection from theorem counter representation
+
+
+% Definition of List of Theorems (\listtheorems{<name>})
+\theoremlisttype{opt}
+
+%%%%%%%% End Theorems definitions

@@ -1,0 +1,56 @@
+\ProvidesPackage{myGenerics}[2021/02/15 package myGenerics: underline, callout frame and other particulars]	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Underlining without crossing descenders 
+%   Descenders are those parts of a letter that extends below the baseline of the text, e.g., "y", "p" or "j"
+%   Approach taken from: https://alexwlchan.net/2017/10/latex-underlines/
+%   use: \uline{any text you want underlined while remaining free of the descenders in}
+%
+\RequirePackage{contour}
+\RequirePackage{ulem}
+%
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+%
+\let\olduline\uline
+\renewcommand*{\uline}[1]{%         % Notice we've *re*defined uline!
+  \olduline{\phantom{#1}}%
+  \llap{\contour{white}{#1}}%
+}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Color definitions
+% 
+\RequirePackage{xcolor}
+\definecolor{skyblue}{rgb}{246,246,246}
+\definecolor{cosmiclatte}{rgb}{1.0, 0.97, 0.91}
+\definecolor{burlywood}{rgb}{0.87, 0.72, 0.53}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Callout frame around text
+% 
+\RequirePackage{mdframed}           % 
+%
+\newenvironment{callouttip}[1]{     % Define configuration for the mdframed package
+    \begin{mdframed}[%
+        style=titlecallout,
+        linecolor=burlywood, 
+        backgroundcolor=cosmiclatte,
+        frametitle={#1}]
+}{
+    \end{mdframed}
+}
+\newmdenv[%
+    backgroundcolor=blue!10,
+    linecolor=blue,
+    outerlinewidth=1pt,
+    roundcorner=1mm,	% Works only with framemethod=TikZ or PSTricks
+    skipabove=\baselineskip,
+    skipbelow=\baselineskip,
+	leftmargin=10mm,
+	rightmargin=10mm,
+    font=\small
+	]{sidebox}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

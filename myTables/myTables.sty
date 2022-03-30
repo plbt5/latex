@@ -1,0 +1,21 @@
+\ProvidesPackage{myTables}[2021/11/24 package myTables; Combines useful table-related packages, no new definitions.]	
+%%%%%%
+%
+% Tables
+%
+%%%%%%
+\usepackage{xltabular}		% Includes longtable with the column specifier X as in tabularx
+\usepackage{caption}		% For placing labels in a floating environment (specifically, 
+                            % multiple design principles in a table)
+\usepackage[within=none]{newfloat}	% For specifying a new foating environment (specifically, design principles)
+
+%% Table stuff - sourced from: 
+%% https://tex.stackexchange.com/questions/33510/how-do-i-create-the-headings-for-this-multirow-multicolum-table
+\usepackage{multirow}       % Supports merging cells over rows
+\usepackage{booktabs}       % To enhance the quality of tables in LaTeX. Guidelines are given as to
+                            % what constitutes a good table in this context.
+                            
+%% Abbreviations for long commands
+\def\bc#1{\multicolumn{2}{c}{#1}}		% shorter, hence easier to fit the table
+\def\br#1{\multirow{2}{*}{#1}}			% shorter, hence easier to fit the table
+	
