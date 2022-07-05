@@ -15,6 +15,7 @@
 \crefname{mmtrm}{Theorem}{Theorems}
 \crefname{mmprf}{Proof}{Proofs}
 \crefname{mmdp}{Design Principle}{Design Principles}
+\crefname{mmconcern}{Concern}{Concerns}
 \crefname{mmasmptn}{Assumption}{Assumptions}
 \crefname{mmh}{\textsc{Heuristic}}{Heuristics}
 \crefname{mmrmk}{Remark}{Remarks}
@@ -25,16 +26,16 @@
 \crefname{equation}{Eq.}{Eqs.}
 
 %%%%% Theorems Definitions %%%%%%
-% Set the basic theorem style to the standard Definition
-%%%\theoremstyle{definition}
-%%%\theoremstyle{break}		% The header for all theorems are followed by a newline
-% Examples 				-- are numbered by chapter, and carry an asterisk as closing symbol
+%%
+%% Set the basic theorem style to the standard Definition
+
+% Examples 				-- are numbered by chapter, and carry a box as closing symbol
 \theoremsymbol{\ensuremath{_\Box}}
 \newtheorem{mmexmp}{Example}[section]
 %\newreptheorem{mmexmp}{Example (cont'd)}
-% Theses   				-- have continuous numbering scheme, and still close with the asterisk
+% Theses   				-- have continuous numbering scheme, and still close with the box
 \newtheorem{Thesis}{Thesis}
-% Research Questions 		-- are enclosed with horizontal lines, and probably (?) close with the asterisk
+% Research Questions 		-- are enclosed with horizontal rules, and close with the box
 \theoremprework{\hrule}
 \theorempostwork{\hrule}
 \newtheorem{mmthrq}{Research Question}
@@ -52,16 +53,53 @@
 \theoremsymbol{\ensuremath{_\diamond}}
 \newtheorem{mmprf}{Proof}[section]
 % Design Principles			-- are numbered continuously, without closing symbol, header not followed by newline
-%\theoremstyle{break}		% The header for all theorems are followed by a newline
+% Concerns                  -- ditto
 \theoremsymbol{}			% no symbol
 \newtheorem{mmdp}{DP}
+\newtheorem{mmconcern}{Concern}
+\newtheorem{mmsubconcern}{concern}
 % Remarks to tables, figures, whatever -- restart numbering at sections, no closing symbol
 \theorembodyfont{\upshape}	% no slanted or italics
 \newtheorem{mmrmk}{Remark}[subsection]	% theorem counter resets every \subsection
 \renewcommand{\themmrmk}{(\arabic{mmrmk})}	% Remove subsection from theorem counter representation
 
+%% Set environment for subtheorems, following https://tex.stackexchange.com/questions/230569/theorem-sub-numbering-and-hyperref 
+%% allowing for subtheorems based on any theorem, e.g., mmconcerns, as follows:
+%%
+%% \begin{subtheorem}{mmconcern}\label{con:one}
+%%   \begin{mmconcern}\label{con:oneA}
+%%     This is the first subconcern 1a
+%%   \end{mmconcern}
+%%
+%%   \begin{mmconcern}\label{con:oneB}
+%%     This is the second part of concern One, subconcern 1b
+%%   \end{mmconcern}
+%% \end{subtheorem}
+%%
+\makeatletter
+\newenvironment{subtheorem}[1]{%
+  \def\subtheoremcounter{#1}%
+  \refstepcounter{#1}%
+  \protected@edef\theparentnumber{\csname the#1\endcsname}%
+  \setcounter{parentnumber}{\value{#1}}%
+  \setcounter{#1}{0}%
+  \expandafter\def\csname the#1\endcsname{\theparentnumber.\Alph{#1}}%
+  % To keep hyperref happy, update H-counter as well
+  \expandafter\def\csname theH#1\endcsname{thm.\theparentnumber.\Alph{#1}}%
+  \unskip\ignorespaces%
+}{%
+  \setcounter{\subtheoremcounter}{\value{parentnumber}}%
+  \ignorespacesafterend
+}
+\makeatother
+\newcounter{parentnumber}
+%%
+%% End environment for subtheorems
 
-% Definition of List of Theorems (\listtheorems{<name>})
+
+%% Definition of List of Theorems (\listtheorems{<name>})
 \theoremlisttype{opt}
 
+
+%%
 %%%%%%%% End Theorems definitions

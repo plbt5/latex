@@ -1,0 +1,47 @@
+%%%
+% 
+% LaTeX macros for an inline-text flow model
+%   - \bstackedconditional{above text}{below text} creating a horizontal conditional
+%   - \estackedconditional closing the stacked conditional into single double headed arrow
+%
+% Example:
+% \textsc{\small Input\ensuremath{\twoheadrightarrow}Comprehension}\stackedcondtext{Achievement 2}{Achievement 1}\textsc{\small Output} 
+%
+\ProvidesPackage{inlineStackedConditional}[2022/05/12 package inlineStackedConditional; macros for an inline-text, stacked conditional flow model]	
+
+\usepackage{stackengine}
+\usepackage{scalerel}
+\usepackage{amssymb}
+\usepackage{xcolor}
+
+%% 
+%% Supporting commands to draw (corned) arrows
+%%
+%% First, draw arrows
+\newcommand*\arrowne{%  Begin: Draw orthogonal arrow, North then East
+  \raisebox{1.1ex}{\hspace{.41ex}$\Rsh$}}
+\newcommand*\arrowse{%  Begin: Draw orthogonal arrow, South then East
+  \raisebox{-1.45ex}{\hspace{.41ex}{\rotatebox[origin=c]{180}{$\Lsh$}}}}
+\newcommand*\arrowes{%  End: Draw orthogonal (headless) arrow, East then South
+  \raisebox{2.1ex}{\tiny$-$}\hspace{-.4ex}\raisebox{1.4ex}{\scalebox{0.55}{$|$}}}
+\newcommand*\arrowen{%  End: Draw orthogonal (headless) arrow, East then North
+  \raisebox{-1.4ex}{\tiny$-$}\hspace{-.4ex}\raisebox{-.8ex}{\scalebox{0.55}{$|$}}}
+%%
+%% Finally, connect arrows with conditional diamond and in- and outflow
+%%
+\newcommand*\inconditional{%
+  \raisebox{-.05ex}{\textendash}\hspace{-.2ex}\arrowne\hspace{-1.55ex}\arrowse\hspace{-2.1ex}\ensuremath{\diamond}}
+\newcommand*\outconditional{%
+  \arrowes\hspace{-1.2ex}\arrowen\hspace{-.78ex}\ensuremath{\diamond\hspace{-0.9ex}\twoheadrightarrow}}
+%% 
+%% main command: 
+%%   \stackedcondtext{above text}{below text}
+%%
+\newcommand*\stackedcondtext[2]{%
+  \setstackgap{L}{.2\baselineskip}%
+  \( \inconditional \raisebox{0.1ex}{\textsf{\small \stackanchor[\Lstackgap]{\colorbox{gray!30}{#1}}{\colorbox{gray!30}{#2}}}} \outconditional \)}
+
+%
+% EOF
+%
+%%%
